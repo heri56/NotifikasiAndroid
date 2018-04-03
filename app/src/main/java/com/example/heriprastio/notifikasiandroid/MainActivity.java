@@ -5,9 +5,12 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
@@ -26,12 +29,17 @@ public class MainActivity extends AppCompatActivity {
                 .setSmallIcon(R.drawable.notif)
                 .setContentTitle(texttile)
                 .setContentText("Much longer cannot")
-                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap));
+                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+                .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+        Uri alram = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        mbuilder.setSound(alram, AudioManager.STREAM_MUSIC);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                notificationManager.notify(001, mbuilder.build());
+
+
 
             }
         });
